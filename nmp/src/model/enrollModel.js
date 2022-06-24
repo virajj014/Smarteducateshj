@@ -3,7 +3,7 @@ const validator = require("validator");
 
 
 /*****create schema */
-const enrollSchema = mongoose.Schema({
+const enrollSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
@@ -14,24 +14,16 @@ const enrollSchema = mongoose.Schema({
             }
         }
     },
-    confEmail: {
-        type: String,
-        required: true,
-        validate(value){
-            if(!validator.isEmail(value)){
-                throw new Error ("Invalid Email")
-            }
-        }
-    },
+
     mobileNo: {
         type: Number,
         required: true,
-        min: 10,
+        minlength: 10,
         
     },
     createpwd: {
         type: String,
-        min: 8,
+        minlength: 8,
         required: true,
     },
     state: {
@@ -41,9 +33,24 @@ const enrollSchema = mongoose.Schema({
     referralCode: {
         type: String,
     },
+    createdAt:{
+        type: Date,
+        default: Date.now,
+        required: true,
+    },
+    updatedAt:{
+        type: Date,
+        default: Date.now,
+        required: true,
+    },
+    active:{
+        type: Boolean,
+        required: true,
+        default: true,
+    }
 })
 
 /*****create module */
-const enrollModel = mongoose.model("enrollCollection",enrollSchema);
+const enrollModel = new mongoose.model("enrollCollection",enrollSchema);
 
-module.exports = enrollModel;
+module.exports = enrollModel; 
