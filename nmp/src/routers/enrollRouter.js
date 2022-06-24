@@ -9,14 +9,11 @@ router.post("/enroll",async(req,res)=>{
 
     try{
         const data = new enrollModel(req.body);
-
         const addenroll = await data.save();
         res.status(201).send(addenroll);
     }catch(err){
         if(err.toString().includes("11000") && err.toString().includes("email")){
             res.status(400).send("Duplicate Email ID not allowed");
-        }else if(err.toString().includes("Invalid Email")){
-            res.status(400).send("Please Enter a valid Email ID");
         }else{
             res.status(400).send(err.toString());
         }
@@ -34,7 +31,7 @@ router.get("/enroll",async(req,res)=>{
             res.status(404).send("No Record found");
         }
     }catch(err){    
-        res.status(500).send(err);
+        res.status(500).send(err.toString());
     }
 })
 
@@ -85,7 +82,7 @@ router.patch("/enroll/:id",async(req,res)=>{
     try{
 
         const _id = req.params.id;
-        const updateenrollbyid = await enrollModel.findByIdAndUpdate(_id, req.body,{new:true});
+        const updateenrollbyid = await enrollModel.findByIdAndUpdate(_id, req.body,{new:true, runValidators: true});
         if(!updateenrollbyid){
             res.send("Record Not Found");
         }else{
@@ -94,8 +91,7 @@ router.patch("/enroll/:id",async(req,res)=>{
     }catch(err){       
         if(err.toString().includes("11000") && err.toString().includes("email")){
             res.status(400).send("Duplicate Email ID not allowed");
-        
-        }else{
+           }else{
             res.status(400).send(err.toString());
         }
     }
@@ -115,7 +111,7 @@ router.delete("/enroll/:id",async(req,res)=>{
             res.status(200).send(deleteenrollbyid);
         }     
     }catch(err){
-        res.status(500).send("Invalid ID");
+        res.status(500).send(err.toString());
     }
 })
 

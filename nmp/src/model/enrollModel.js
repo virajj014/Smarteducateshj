@@ -7,7 +7,7 @@ const enrollSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique: [true, "Email ID already present"],
+        unique: ["Email ID already present",true],
         validate(value){
             if(!validator.isEmail(value)){
                 throw new Error ("Invalid Email")
@@ -16,14 +16,20 @@ const enrollSchema = new mongoose.Schema({
     },
 
     mobileNo: {
-        type: Number,
+        type: String,
         required: true,
-        minlength: 10,
+       
+        validate(value){
+            console.log(validator.isMobilePhone(value,['en-IN']));
+            if(!validator.isMobilePhone(value,['en-IN'])){                
+                throw new Error("Please Enter valid indian mobile number");                
+            }
+        }
         
     },
-    createpwd: {
+    pwd: {
         type: String,
-        minlength: 8,
+        minlength: [8, "Password length should be atleast 8"],
         required: true,
     },
     state: {
