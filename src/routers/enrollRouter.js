@@ -28,6 +28,30 @@ router.post("/enroll",async(req,res)=>{
     }
 })
 
+
+
+/*****Get data with custom field name and custom field value*/
+
+    router.get("/enroll/:key/:value",async(req,res)=>{
+        console.log("inside get data with multiple fields function");
+        try{
+            const paramkey = req.params.key;
+            const getdata = await enrollModel.find(
+                {
+                    [paramkey] : req.params.value,
+                    
+                }
+            );
+            if(getdata.length>0){
+                res.status(200).send(getdata);
+            }else{  
+                res.status(404).send("No Record found");
+            }
+        }catch(err){    
+            res.status(500).send("Invalid Input");
+        }
+    })
+
 /*****Get all data*/
 router.get("/enroll",async(req,res)=>{
     console.log("inside get function");
@@ -35,142 +59,13 @@ router.get("/enroll",async(req,res)=>{
         const getenroll = await enrollModel.find();
         if(getenroll.length>0){
             res.status(200).send(getenroll);
-        }else{
+        }else{  
             res.status(404).send("No Record found");
         }
     }catch(err){    
         res.status(500).send(err.toString());
     }
 })
-
-
-/*****Get data by id*/
-router.get("/enroll/id=:id",async(req,res)=>{
-    console.log("inside get function");
-    try{
-        const _id = req.params.id;
-        const getenrollbyid = await enrollModel.findById(_id);
-        if(!getenrollbyid){
-            return res.status(404).send("Record Not Found");
-        }else{
-            res.status(201).send(getenrollbyid);
-        }
-    }catch(err){
-        if(err.toString().includes("CastError")){
-            res.status(500).send("Invalid ID");
-        }else{
-            res.status(500).send(err.toString());
-        }
-    }
-})
-
-
-/*****Get data by email*/
-router.get("/enroll/email=:email",async(req,res)=>{
-    console.log("inside get by email function");
-    try{
-        const _email = req.params.email;
-        const getenrollbyemail = await enrollModel.find({email:_email});
-        if(getenrollbyemail.length==0){
-            return res.status(404).send("Record Not Found");
-        }else{
-            res.status(201).send(getenrollbyemail);
-        }
-    }catch(err){
-        if(err.toString().includes("CastError")){
-            res.status(500).send("Invalid email");
-        }else{
-            res.status(500).send(err.toString());
-        }
-    }
-})
-
-/*****Get data by mobile number*/
-router.get("/enroll/mobilenumber=:mobileNo",async(req,res)=>{
-    console.log("inside get by mobile function");
-    try{
-        const _mobileNo = req.params.mobileNo;
-        const getenrollbyemobile = await enrollModel.find({mobileNo:_mobileNo});
-        console.log(getenrollbyemobile);
-        if(getenrollbyemobile.length == 0){
-            return res.status(404).send("Record Not Found");
-        }else{
-            res.status(201).send(getenrollbyemobile);
-        }
-    }catch(err){
-        if(err.toString().includes("CastError")){
-            res.status(500).send("Invalid Mobile Number");
-        }else{
-            res.status(500).send(err.toString());
-        }
-    }
-})
-
-
-/*****Get data by status*/
-router.get("/enroll/active=:active",async(req,res)=>{
-    console.log("inside get by status function");
-    try{
-        const _active = req.params.active;
-        const getenrollbyactive = await enrollModel.find({active:_active});
-        if(getenrollbyactive.length==0){
-            return res.status(404).send("Record Not found");
-        }else{
-            res.status(201).send(getenrollbyactive);
-        }
-    }catch(err){
-        if(err.toString().includes("CastError")){
-            res.status(500).send("Invalid Input");
-        }else{
-            res.status(500).send(err.toString());
-        }
-    }
-})
-
-
-/*****Get data by state*/
-router.get("/enroll/state=:state",async(req,res)=>{
-    console.log("inside get by state function");
-    try{
-        const state = req.params.state;
-        const getenrollbystate = await enrollModel.find({state:state});
-        if(getenrollbystate.length==0){
-            return res.status(404).send("Record Not found");
-        }else{
-            res.status(201).send(getenrollbystate);
-        }
-    }catch(err){
-        if(err.toString().includes("CastError")){
-            res.status(500).send("Invalid Input");
-        }else{
-            res.status(500).send(err.toString());
-        }
-    }
-})
-
-/*****Get data by refferalcode*/
-router.get("/enroll/referralCode=:referralCode",async(req,res)=>{
-    console.log("inside get by referralCode function");
-    try{
-        const referralCode = req.params.referralCode;
-        const getenrollbyreferralCode = await enrollModel.find({referralCode:referralCode});
-        if(getenrollbyreferralCode.length==0){
-            return res.status(404).send("Record Not found");
-        }else{
-            res.status(201).send(getenrollbyreferralCode);
-        }
-    }catch(err){
-        if(err.toString().includes("CastError")){
-            res.status(500).send("Invalid Input");
-        }else{
-            res.status(500).send(err.toString());
-        }
-    }
-})
-
-
-
-
 
 /*****Update Data By ID */
 router.patch("/enroll/:id",async(req,res)=>{

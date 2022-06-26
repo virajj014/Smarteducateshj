@@ -38,23 +38,21 @@ router.get("/admin",async(req,res)=>{
 })
 
 
-/*****Get data by id*/
-router.get("/admin/:id",async(req,res)=>{
-    console.log("inside get function");
+/*****Get data with custom field name and custom field value*/
+
+router.get("/admin/:key/:value",async(req,res)=>{
+    console.log("inside get data with multiple fields function");
     try{
-        const _id = req.params.id;
-        const getadminbyid = await adminModel.findById(_id);
-        if(!getadminbyid){
-            return res.status(404).send("Record Not Found");
-        }else{
-            res.status(201).send(getadminbyid);
+        const getdata = await adminModel.find({
+                [req.params.key] : req.params.value,                    
+            });
+        if(getdata.length>0){
+            res.status(200).send(getdata);
+        }else{  
+            res.status(404).send("No Record found");
         }
     }catch(err){
-        if(err.toString().includes("CastError")){
-            res.status(500).send("Invalid ID");
-        }else{
-            res.status(500).send(err.toString());
-        }
+        res.status(500).send("Invalid Input");
     }
 })
 
