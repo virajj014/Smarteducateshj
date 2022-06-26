@@ -129,7 +129,13 @@ router.post("/login", async(req,res)=>{
                 if(useremail.active===true){
                     const token = await useremail.generateAuthToken();
                     console.log('the token: '+token);
-                    res.status(201).send(useremail);
+                    res.cookie("smartedu", token, {
+                        expires: new Date(Date.now() + 3000),
+                        httpOnly: true
+                    });
+                    const usermailWithToken = Object.assign({token : token.toString(), useremail})
+                    res.status(201).send(usermailWithToken);
+
                 }else{
                 res.status(403).send("your account is restricted please contact support")
                 }
