@@ -11,10 +11,16 @@ router.post("/enroll",async(req,res)=>{
     try{
         const data = new enrollModel(req.body);
         if(data){
-
-        const addenroll = await data.save();
+            console.log(req.body.cpwd);
+            console.log(req.body.pwd);
+            if(req.body.cpwd===req.body.pwd){
+                const addenroll = await data.save();
         
-        res.status(201).send(addenroll);
+                res.status(201).send(addenroll);
+            }else{
+                res.send("password and confirm password do not match");
+            }
+        
         }else{
         res.status(400).send("Error");
         }
@@ -36,18 +42,15 @@ router.post("/enroll",async(req,res)=>{
         console.log("inside get data with multiple fields function");
         try{
             const paramkey = req.params.key;
-            const getdata = await enrollModel.find(
-                {
-                    [paramkey] : req.params.value,
-                    
-                }
-            );
+            const getdata = await enrollModel.find({
+                    [paramkey] : req.params.value,                    
+                });
             if(getdata.length>0){
                 res.status(200).send(getdata);
             }else{  
                 res.status(404).send("No Record found");
             }
-        }catch(err){    
+        }catch(err){
             res.status(500).send("Invalid Input");
         }
     })
