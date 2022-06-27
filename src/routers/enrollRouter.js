@@ -1,8 +1,11 @@
 require('dotenv').config();
 const express = require("express");
+const app = express();
 const router = new express.Router();
 const enrollModel = require("../model/enrollModel");
+const cookieParser = require("cookie-parser");
 
+app.use(cookieParser());
 
 /*****create enroll */
 router.post("/enroll",async(req,res)=>{
@@ -73,6 +76,8 @@ router.get("/enroll",async(req,res)=>{
 /*****Update Data By ID */
 router.patch("/enroll/:id",async(req,res)=>{
     console.log("inside update function");
+    console.log(`This is the cookie:  ${req.cookies.jwt}`);
+
     try{
 
         const _id = req.params.id;
@@ -102,6 +107,7 @@ router.delete("/enroll/:id",async(req,res)=>{
         if(!deleteenrollbyid){
             res.status(404).send("Record not found");
         }else{
+            
             res.status(200).send(deleteenrollbyid);
         }     
     }catch(err){
@@ -130,9 +136,12 @@ router.post("/login", async(req,res)=>{
                     const token = await useremail.generateAuthToken();
                     console.log('the token: '+token);
                     res.cookie("smartedu", token, {
-                        expires: new Date(Date.now() + 3000),
-                        httpOnly: true
+                        expires: new Date(Date.now() + 60000),
+                        httpOnly: true                        
                     });
+
+                    console.log(`This is the cookie:  ${req.cookies.jwt}`);
+
                     const usermailWithToken = Object.assign({token : token.toString(), useremail})
                     res.status(201).send(usermailWithToken);
 

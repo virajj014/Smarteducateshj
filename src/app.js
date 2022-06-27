@@ -11,6 +11,7 @@ app.use(cookieParser());
 app.use('/enroll',enrollRouter);
 app.use('/admin',adminRouter);
 
+console.log(`This is the cookie:  ${res.cookies.jwt}`);
 
 
 

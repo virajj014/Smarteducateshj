@@ -55,24 +55,15 @@ const enrollSchema = new mongoose.Schema({
         required: true,
         default: true,
     },
-    // tokens: [{
-    //     token:{
-    //         type: String,
-         
-    //     }
-    // }]
 })
 
 /******Generating Tokens */
-enrollSchema.methods.generateAuthToken = async function(fh){
+enrollSchema.methods.generateAuthToken = async function(){
     try{
-        // console.log(this._id);
         const token = jwt.sign({_id:this._id}, process.env.SECRET_KEY);
-        // this.tokens = this.tokens.concat({token:token})
-        // await this.save();
         return token;   
     }catch(err){
-        res.status(400).send(err.toString());
+        return err.toString();
     }
 }
 
