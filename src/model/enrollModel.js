@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
 
 /*****create schema */
@@ -57,11 +58,35 @@ const enrollSchema = new mongoose.Schema({
     },
 })
 
+
+
+
+/*****Bcrypt PAssword */
+enrollSchema.pre("save", async function(next){
+    if (this.isModified("pwd")){
+        this.pwd = await bcrypt.hash(this.pwd, 10);
+    }
+   
+    next();
+})
+
 /******Generating Tokens */
 enrollSchema.methods.generateAuthToken = async function(){
     try{
-        const token = jwt.sign({_id:this._id}, process.env.SECRET_KEY);
-        return token;   
+        const token = jwt.sign({_id:this._id}, process.env.SECRET_KEY, {expiresIn:'30s'});
+
+        return token;  
+    }catch(err){
+        return err.toString();
+    }
+}
+
+/******Generating refreshTokens */
+enrollSchema.methods.generateAuthRefreshToken = async function(){
+    try{
+        const refreshToken = jwt.sign({_id:this._id}, process.env.SECRET_REFERESH_KEY,{expiresIn:'12h'});
+
+        return refreshToken;   
     }catch(err){
         return err.toString();
     }

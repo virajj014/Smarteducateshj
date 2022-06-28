@@ -7,10 +7,7 @@ const mongoose = require("mongoose")
 // }).catch((err)=>{
 //     console.log("Connection Error")
 // })
-mongoose.connect("mongodb+srv://smarteducates:smarteducates123@cluster0.hiv62.mongodb.net/smarteducate?retryWrites=true&w=majority", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-}).then(() => {
+mongoose.connect("mongodb+srv://smarteducates:smarteducates123@cluster0.hiv62.mongodb.net/smarteducate?retryWrites=true&w=majority").then(() => {
     console.log(`connection sucessful`);
 }).catch((err) => console.log(`no connection ${err}`)
 );
