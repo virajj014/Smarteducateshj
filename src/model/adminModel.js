@@ -35,22 +35,12 @@ const adminSchema = new mongoose.Schema({
         minlength: [8, "Password length should be atleast 8"],
         required: true,
     },
-    createdAt:{
-        type: Date,
-        default: Date.now,
-        required: true,
-    },
-    updatedAt:{
-        type: Date,
-        default: Date.now,
-        required: true,
-    },
     active:{
         type: Boolean,
         required: true,
         default: true,
     }
-})
+},{timestamps:true})
 
 
 /*****create module */

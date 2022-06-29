@@ -41,22 +41,13 @@ const enrollSchema = new mongoose.Schema({
     referralCode: {
         type: String,
     },
-    createdAt:{
-        type: Date,
-        default: Date.now,
-        required: true,
-    },
-    updatedAt:{
-        type: Date,
-        default: Date.now,
-        required: true,
-    },
     active:{
         type: Boolean,
         required: true,
         default: true,
     },
-})
+},{timestamps:true}) // timestamp creates two fields 1. createdAt that shows the time of field creation 
+                                                  // 2. updatedAt that shows the time of last updated
 
 
 

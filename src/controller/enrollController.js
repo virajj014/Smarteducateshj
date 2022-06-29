@@ -49,8 +49,9 @@ module.exports = {
         console.log("inside get data with multiple fields function");
         try{
             const paramkey = req.params.key;
+            const paramvalue = req.params.value;
             const getdata = await enrollModel.find({
-                    [paramkey] : req.params.value,                    
+                    [paramkey] : paramvalue,                    
                 });
             if(getdata.length>0){
                 res.status(200).send(getdata);
