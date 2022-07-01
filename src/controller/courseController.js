@@ -75,14 +75,20 @@ module.exports = {
 
         try{
             const _id = req.params.id;
-            if(!_id){
-                res.status(404).send('Record Not Found');
+            const id = await courseModel.findOne({_id},{_id:1});
+            console.log(id);
+            if(!id){
+                res.status(404).send('No Record Found To Delete');
             }else{
                 const deleteddata = await courseModel.findByIdAndDelete(_id);
                 res.status(201).send(deleteddata);
             }
         }catch(err){
-            res.status(400).send(err.toString());
+            if(err.toString().includes('CastError')){
+                res.status(404).send('No Record Found To Delete');
+            }else{
+              res.status(400).send(err.toString());
+            }
         }
     }
 }

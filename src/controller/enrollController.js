@@ -4,16 +4,21 @@ const jwt = require("jsonwebtoken");
 
 var login_attempt = 0;
 module.exports = {
+    // createuser : function() {
+    //     return console.log("SMARTEDU" + Date.now());
+    // },
     createuser : async function (req,res){    
     console.log("Inside post function");
 
     try{
         const data = new enrollModel(req.body);
         if(data){
-            
             if(req.body.cpwd===req.body.pwd){
+                // const referralCode = Math.floor(Math.random() * 9999);
+                // const rf = enrollModel.find({},{referralCode:1});
+
+                // console.log('Random number: ' + referralCode + 'DB: ' + rf);
                 const addenroll = await data.save();
-                console.log(`Add : ${addenroll}`);
                 res.status(201).send(addenroll);
             }else{
                 res.send("password and confirm password do not match");
@@ -38,7 +43,7 @@ module.exports = {
         console.log(getenroll.toString());
         if(getenroll.length>0){
             res.status(200).send(getenroll);
-        }else{  
+        }else{
             res.status(404).send("No Record found");
         }
     }catch(err){    
@@ -65,10 +70,8 @@ module.exports = {
     updateuser : async function (req,res){
         console.log("inside update function");
     
-        try{
-    
-            const _id = req.params.id;
-            
+        try{    
+            const _id = req.params.id;            
             const updateenrollbyid = await enrollModel.findById(_id);
     
             if(!updateenrollbyid){
@@ -81,7 +84,7 @@ module.exports = {
                 res.send(updateenrollbyid);
             }         
         }catch(err){       
-            if(err.toString().includes("11000") && err.toString().includes("email")){
+            if(err.toString().includes("E11000 duplicate key error")){
                 res.status(400).send("Duplicate Email ID not allowed");
                }else if(err.toString().includes("CastError")){
                 res.status(500).send("Invalid ID");

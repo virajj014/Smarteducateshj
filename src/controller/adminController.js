@@ -9,8 +9,13 @@ module.exports = {
     
         try{
             const data = new adminModel(req.body);
-            const addadmin = await data.save();
-            res.status(201).send(addadmin);
+            if(data){
+                const addadmin = await data.save();
+                res.status(201).send(addadmin);
+            }else{
+                res.status(404).send("Please provide data");
+            }
+            
         }catch(err){
             if(err.toString().includes("11000") && err.toString().includes("email")){
                 res.status(401).send("Email id already exist");
@@ -54,14 +59,18 @@ module.exports = {
         try{
     
             const _id = req.params.id;
-            const updateadminbyid = await adminModel.findByIdAndUpdate(_id, req.body,{new:true, runValidators: true});
+            const updateadminbyid = await adminModel.findById(_id);
             if(!updateadminbyid){
                 res.send("Record Not Found");
             }else{
+                updateadminbyid.set({
+                    ...req.body
+                })
+                await updateadminbyid.save();
                 res.send(updateadminbyid);
             }         
         }catch(err){       
-            if(err.toString().includes("11000") && err.toString().includes("email")){
+            if(err.toString().includes("E11000 duplicate key error")){
                 res.status(400).send("Email ID already Exists");
                }else if(err.toString().includes("11000") && err.toString().includes("username")){
                 res.status(401).send("Username already exist");
@@ -91,16 +100,14 @@ module.exports = {
             const username = req.body.email;
             const password = req.body.password;
     
-            const useremail = await adminModel.findOne().or([{email:username},{username: username}]);
-            console.log(useremail);
+            const useremail = await adminModel.findOne({$OR:[{email:username},{username: username}]});
             if(!useremail){
                 login_attempt += 1;
                 res.status(404).send("Email or Password is incorrect."+`    login attempt: ${login_attempt}`);
                 
             }else{
-                console.log(password);
-
-                if(useremail.password===password){
+                const isMatch = await bcrypt.compare(password, useremail.password);
+                if(isMatch){
                     if(useremail.active===true){
                     res.status(201).send(useremail);
                     }else{

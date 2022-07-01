@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const bcrypt = require("bcryptjs");
+
 
 /*****create schema */
 
@@ -41,6 +43,15 @@ const adminSchema = new mongoose.Schema({
         default: true,
     }
 },{timestamps:true})
+
+/*****Bcrypt PAssword */
+adminSchema.pre("save", async function(next){
+    if (this.isModified("password")){
+        this.password = await bcrypt.hash(this.password, 10);
+    }
+   
+    next();
+});
 
 
 /*****create module */

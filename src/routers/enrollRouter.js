@@ -8,7 +8,7 @@ const EnrollController = require("../controller/enrollController");
 
 router.post("/enroll",EnrollController.createuser);
 router.get("/enroll/:key/:value",EnrollController.getuser);
-router.get("/enroll",authenticate,EnrollController.getalluser);
+router.get("/enroll",EnrollController.getalluser);
 router.patch("/enroll/:id",EnrollController.updateuser);
 router.delete("/enroll/:id",EnrollController.deleteuser);
 router.post("/login", EnrollController.loginuser);

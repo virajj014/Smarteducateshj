@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 
+
 /*****create schema */
 const enrollSchema = new mongoose.Schema({
     email: {
@@ -16,7 +17,6 @@ const enrollSchema = new mongoose.Schema({
             }
         }
     },
-
     mobileNo: {
         type: String,
         required: true,
@@ -38,13 +38,19 @@ const enrollSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    referralCode: {
+    referredCode: {
         type: String,
     },
     active:{
         type: Boolean,
         required: true,
         default: true,
+    },
+    referralCode: {
+        type: String,
+        unique: true,
+        required: true,
+        default: "SMARTEDU" + new Date().getTime() + new Date().getDate(),
     },
 },{timestamps:true}) // timestamp creates two fields 1. createdAt that shows the time of field creation 
                                                   // 2. updatedAt that shows the time of last updated
@@ -57,9 +63,8 @@ enrollSchema.pre("save", async function(next){
     if (this.isModified("pwd")){
         this.pwd = await bcrypt.hash(this.pwd, 10);
     }
-   
     next();
-})
+});
 
 /******Generating Tokens */
 enrollSchema.methods.generateAuthToken = async function(){
