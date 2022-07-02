@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const EnrollController = require("../controller/enrollController");
 
 
 
@@ -50,7 +51,8 @@ const enrollSchema = new mongoose.Schema({
         type: String,
         unique: true,
         required: true,
-        default: "SMARTEDU" + new Date().getTime() + new Date().getDate(),
+        default: Date.now(),
+        
     },
 },{timestamps:true}) // timestamp creates two fields 1. createdAt that shows the time of field creation 
                                                   // 2. updatedAt that shows the time of last updated
@@ -63,6 +65,7 @@ enrollSchema.pre("save", async function(next){
     if (this.isModified("pwd")){
         this.pwd = await bcrypt.hash(this.pwd, 10);
     }
+    this.referralCode = await ref();
     next();
 });
 
@@ -92,3 +95,20 @@ enrollSchema.methods.generateAuthRefreshToken = async function(){
 const enrollModel = new mongoose.model("enrollCollection",enrollSchema);
 
 module.exports = enrollModel; 
+
+const ref = async function(){
+    
+    // const randomNumber = Math.floor(Math.random() * 99999);
+    const randomNumber = Math.random().toString(36).substring(2,10+2).toUpperCase();
+                const rf = await enrollModel.findOne({referralCode: randomNumber},{referralCode : 1, _id : 0});
+                
+                console.log('Random number: ' + randomNumber + 'DB: ' + rf);
+
+                if(!rf){
+                    console.log('inside if');
+                    return randomNumber;
+                }else{
+                    console.log('inside else')
+                    return Math.random().toString(36).substring(2,10+2).toUpperCase();
+                }
+};

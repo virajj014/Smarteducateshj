@@ -4,20 +4,14 @@ const jwt = require("jsonwebtoken");
 
 var login_attempt = 0;
 module.exports = {
-    // createuser : function() {
-    //     return console.log("SMARTEDU" + Date.now());
-    // },
     createuser : async function (req,res){    
     console.log("Inside post function");
 
     try{
-        const data = new enrollModel(req.body);
+        var data = new enrollModel(req.body);
         if(data){
             if(req.body.cpwd===req.body.pwd){
-                // const referralCode = Math.floor(Math.random() * 9999);
-                // const rf = enrollModel.find({},{referralCode:1});
-
-                // console.log('Random number: ' + referralCode + 'DB: ' + rf);
+                
                 const addenroll = await data.save();
                 res.status(201).send(addenroll);
             }else{
@@ -170,4 +164,35 @@ module.exports = {
             }
         })
 },
-}
+ref: async function(){
+    
+    const randomNumber = Math.floor(Math.random() * 9999);
+                const rf = await enrollModel.findOne({referralCode: randomNumber},{referralCode : 1, _id : 0});
+                
+                console.log('Random number: ' + randomNumber + 'DB: ' + rf);
+
+                if(!rf){
+                    console.log('inside if');
+                    return randomNumber;
+                }else{
+                    console.log('inside else')
+                    ref();
+                }
+},
+};
+// const ref = async function(){
+    
+//     const randomNumber = Math.floor(Math.random() * 9999);
+//                 const rf = await enrollModel.findOne({referralCode: randomNumber},{referralCode : 1, _id : 0});
+                
+//                 console.log('Random number: ' + randomNumber + 'DB: ' + rf);
+
+//                 if(!rf){
+//                     console.log('inside if');
+//                     return randomNumber;
+//                 }else{
+//                     console.log('inside else')
+//                     ref();
+//                 }
+// };
+
