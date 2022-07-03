@@ -164,35 +164,4 @@ module.exports = {
             }
         })
 },
-ref: async function(){
-    
-    const randomNumber = Math.floor(Math.random() * 9999);
-                const rf = await enrollModel.findOne({referralCode: randomNumber},{referralCode : 1, _id : 0});
-                
-                console.log('Random number: ' + randomNumber + 'DB: ' + rf);
-
-                if(!rf){
-                    console.log('inside if');
-                    return randomNumber;
-                }else{
-                    console.log('inside else')
-                    ref();
-                }
-},
 };
-// const ref = async function(){
-    
-//     const randomNumber = Math.floor(Math.random() * 9999);
-//                 const rf = await enrollModel.findOne({referralCode: randomNumber},{referralCode : 1, _id : 0});
-                
-//                 console.log('Random number: ' + randomNumber + 'DB: ' + rf);
-
-//                 if(!rf){
-//                     console.log('inside if');
-//                     return randomNumber;
-//                 }else{
-//                     console.log('inside else')
-//                     ref();
-//                 }
-// };
-
