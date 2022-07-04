@@ -5,7 +5,6 @@ const authenticate = require("../middleware/authenticate");
 const EnrollController = require("../controller/enrollController");
 
 
-
 router.post("/enroll",EnrollController.createuser);
 router.get("/enroll/:key/:value",EnrollController.getuser);
 router.get("/enroll",EnrollController.getalluser);

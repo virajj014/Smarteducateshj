@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const EnrollController = require("../controller/enrollController");
 
 
 
@@ -55,7 +54,7 @@ const enrollSchema = new mongoose.Schema({
         
     },
 
-},{timestamps:true}) // timestamp creates two fields 1. createdAt that shows the time of field creation 
+},{timestamps:true}); // timestamp creates two fields 1. createdAt that shows the time of field creation 
                                                   // 2. updatedAt that shows the time of last updated
 
 
@@ -73,13 +72,13 @@ enrollSchema.pre("save", async function(next){
 /******Generating Tokens */
 enrollSchema.methods.generateAuthToken = async function(){
     try{
-        const token = jwt.sign({_id:this._id}, process.env.SECRET_KEY, {expiresIn:'30s'});
+        const token = jwt.sign({_id:this._id}, process.env.SECRET_KEY, {expiresIn:'1h'});
 
         return token;  
     }catch(err){
         return err.toString();
     }
-}
+};
 
 /******Generating refreshTokens */
 enrollSchema.methods.generateAuthRefreshToken = async function(){
@@ -95,7 +94,7 @@ enrollSchema.methods.generateAuthRefreshToken = async function(){
 /*****create module */
 const enrollModel = new mongoose.model("enrollCollection",enrollSchema);
 
-module.exports = enrollModel; 
+module.exports = enrollModel;
 
 const ref = async function(){
     

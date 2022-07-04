@@ -108,6 +108,9 @@ module.exports = {
         try{
             const email = req.body.email;
             const password = req.body.pwd;
+            console.log(email);
+            console.log(password);
+
     
             const useremail = await enrollModel.findOne({email: email});
             if(!useremail){
