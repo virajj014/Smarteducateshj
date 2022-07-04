@@ -54,6 +54,7 @@ const enrollSchema = new mongoose.Schema({
         default: Date.now(),
         
     },
+
 },{timestamps:true}) // timestamp creates two fields 1. createdAt that shows the time of field creation 
                                                   // 2. updatedAt that shows the time of last updated
 
@@ -102,10 +103,11 @@ const ref = async function(){
     const randomNumber = Math.random().toString(36).substring(2,10+2).toUpperCase();
                 const rf = await enrollModel.findOne({referralCode: randomNumber},{referralCode : 1, _id : 0});
                 
-                console.log('Random number: ' + randomNumber + 'DB: ' + rf);
+                // console.log('Random number: ' + randomNumber + 'DB: ' + rf);
 
                 if(!rf){
                     console.log('inside if');
+                    
                     return randomNumber;
                 }else{
                     console.log('inside else')

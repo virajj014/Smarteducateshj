@@ -11,8 +11,10 @@ router.get("/enroll/:key/:value",EnrollController.getuser);
 router.get("/enroll",EnrollController.getalluser);
 router.patch("/enroll/:id",EnrollController.updateuser);
 router.delete("/enroll/:id",EnrollController.deleteuser);
-router.post("/login", authenticate, EnrollController.loginuser);
+router.post("/login", EnrollController.loginuser);
 router.post("/refreshToken", EnrollController.refreshtoken);
+router.post("/logout", authenticate, EnrollController.logoutuser);
+
 
 
 

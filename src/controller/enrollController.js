@@ -164,4 +164,14 @@ module.exports = {
             }
         })
 },
+    logoutuser: async function (req,res){
+        try{
+            console.log(req.user);
+            res.clearCookie('user');
+            console.log('Logout Successfull');
+            await req.user.save();
+        }catch(err){
+            res.status(500).send(err.toString);
+        }
+},
 };
