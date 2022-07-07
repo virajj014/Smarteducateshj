@@ -1,0 +1,102 @@
+import React, { useEffect, useState } from 'react'
+import Userprofilenavbar from './Userprofilenavbar'
+import "./Userprofile.css";
+import Cookies from 'js-cookie';
+import axios from 'axios'
+
+const Userprofile = () => {
+
+    const user = Cookies.get("user");
+    const emailUser = JSON.parse(user).email;
+    const [userdetails,setuserDeatils] =  useState('user')
+
+    useEffect(()=>{
+        axios.get(`/enroll/enroll/email/${emailUser}`).then((response)=>{
+                setuserDeatils(response.data);
+        }).catch((e)=>{
+          console.log(e)  
+        })
+    },[])
+ 
+
+    return (
+        <div className='userprofile-outer'>
+            <Userprofilenavbar />
+            <div className="userprofile-container">
+                <h1>Personal Information</h1>
+                <form>
+                    <div>
+
+                        <label>Name</label>
+                        <input disabled name='username' />
+                    </div>
+                    <div>
+                        <label>Login Id</label>
+                    <input disabled name='userloginid'  />
+                    </div>
+
+                    <div>
+                        <label>Email</label>
+                        <input disabled name='useremail' value={userdetails[0].email} />
+                    </div>
+
+                    <div>
+
+                        <label>Mobile Number</label>
+                        <input name='userphone' value="7000896210" />
+                    </div>
+
+                    <div>
+                        <label>Gender</label>
+                        <select id="gender">
+                            <option value="Male">Male</option>
+                            <option value="Female" >Female</option>
+                            <option value="Other" >Other</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>DOB</label>
+                        <input type="date" />
+                    </div>
+
+                    <div>
+                        <label>Select Country</label>
+                        <select id="country">
+                            <option value="India">India</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>Select State</label>
+                        <select id="state">
+                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                        </select>
+                    </div>
+
+
+                    <div>
+                        <label>Enter City</label>
+                        <input name='usercity' value="jabalpur" />
+                    </div>
+
+                    <div>
+                        <label>Pin Code</label>
+                        <input name='usercitypincode' />
+                    </div>
+
+                    <div className='contfullwidth'>
+                        <label>Address</label>
+                        <textarea name='useraddress' />
+                    </div>
+
+                    <div className='contfullwidth'>
+                        <button type="button" >Make Changes </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    )
+}
+
+export default Userprofile

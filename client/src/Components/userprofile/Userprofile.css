@@ -1,0 +1,119 @@
+.userprofile-outer {
+    display: flex;
+}
+
+.userprofile-container {
+    width: 100%;
+    background: linear-gradient(to bottom right, #ccffff 30%, #00ffff 115%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+
+.userprofile-container h1 {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 40px;
+    color: #1FBCD4;
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+.userprofile-container form {
+    background-color: white;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.userprofile-container form div {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    margin: 10px;
+}
+
+.userprofile-container form label {
+    font-weight: 600;
+    color: #1FBCD4;
+}
+
+.userprofile-container form input {
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: white;
+    border: none;
+    border: 2px solid #1FBCD4;
+}
+
+.userprofile-container form input:disabled {
+    background-color: #f3f3f3;
+    cursor: not-allowed;
+}
+
+
+
+.userprofile-container form select {
+    border: 2px solid #1FBCD4;
+}
+
+
+.userprofile-container form .contfullwidth {
+    width: 85%;
+}
+
+.userprofile-container form textarea {
+    border: 2px solid #1FBCD4;
+    border-radius: 10px;
+    width: 100%;
+}
+
+
+.userprofile-container form input:hover,
+.userprofile-container form select:hover,
+.userprofile-container form textarea:hover {
+    background-color: #e3ffff;
+}
+
+.userprofile-container form input:focus,
+.userprofile-container form select:focus,
+.userprofile-container form textarea:focus {
+    background-color: #e3ffff;
+    outline: none;
+}
+
+
+.userprofile-container form button {
+    background-color: #1FBCD4;
+    width: 150px;
+    display: block;
+    margin: auto;
+    color: white;
+    padding: 5px;
+    border: none;
+    border-radius: 10px;
+}
+
+
+@media (max-width: 1380px) {
+    .userprofile-container form div {
+        width: 400px;
+    }
+
+    .userprofile-container h1 {
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .userprofile-container form div {
+        width: 100%;
+    }
+}

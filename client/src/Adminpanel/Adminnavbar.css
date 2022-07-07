@@ -1,0 +1,100 @@
+.adminnav-outer {
+    width: 300px;
+    background-color: rgb(33, 49, 43);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 30px;
+}
+
+.adminnav-outer img {
+    width: 150px;
+}
+
+.adminnav-outer div h1 {
+    font-size: 30px;
+}
+
+.porange {
+    font-size: 20px;
+    color: orange;
+}
+
+.adminnav-outer div ul {
+    list-style: none;
+}
+
+.li {
+    text-decoration: none;
+}
+
+.pwhite {
+    color: white;
+    font-size: 16px;
+    text-decoration: none;
+    margin: 5px 0px;
+    line-height: 16px;
+    padding: 8px;
+}
+
+.pwhite:hover {
+    color: rgb(33, 49, 43);
+    font-weight: 500;
+
+    border-radius: 5px;
+    background-color: white;
+
+}
+
+.active-admin-page {
+    color: rgb(33, 49, 43);
+    font-weight: 500;
+
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.868);
+}
+
+
+/* mobile navbar */
+.admin-hamburger,
+.admin-hamburger1 {
+    display: none;
+    height: 40px;
+    width: 40px;
+    /* position: fixed; */
+    /* margin: 13px; */
+    background-color: rgb(255, 166, 0);
+    border: none;
+    border-radius: 40px;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-hamburger i,
+.admin-hamburger1 i {
+    color: white;
+    font-size: 20px;
+}
+
+.admin-hamburger1 {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+}
+
+
+@media (max-width: 850px) {
+    .adminnav-outer {
+        display: none;
+        position: fixed;
+        z-index: +2;
+        top: 0px;
+        left: 0px;
+    }
+
+    .admin-hamburger,
+    .admin-hamburger1 {
+        display: flex;
+    }
+}
