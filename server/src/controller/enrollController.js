@@ -138,30 +138,33 @@ module.exports = {
     
                         const usermailWithToken = Object.assign({token : token.toString(),refreshToken : refreshToken.toString() ,useremail})
                         res.status(201).send(usermailWithToken);
-                        login_attempt = 0;
+                        useremail.set({
+                            "login_attempt" : 0
+                        });
+                        await useremail.save();
     
                     }else{
                     res.status(403).send("your account is restricted please contact support")
                     }
                 }else{
-                    const failednumber = useremail['login_attempt'];
+                   
+                    
                     console.log(useremail['login_attempt']);
 
-                    useremail.set({
-                        "login_attempt" : useremail['login_attempt']+1
-                    })
-                    await useremail.save();
-                    console.log(useremail['login_attempt']);
-
-                    // if(login_attempt >= 3){
-                    //     console.log(useremail);
-                    //     useremail.set({
-                    //         "active" : false
-                    //     });
-                    //     await useremail.save();
-                    // }else{
-                    //     res.status(404).send("Password is incorrect try again"+ `   failed attempt: ${login_attempt}`);
-                    // }
+                    if(useremail['login_attempt'] >= 3){
+                        
+                        useremail.set({
+                            "active" : false,
+                            "login_attempt" : 0
+                        });
+                        await useremail.save();
+                    }else{
+                        useremail.set({
+                            "login_attempt" : useremail['login_attempt']+1
+                        })
+                        await useremail.save();
+                        res.status(404).send("Password is incorrect try again"+ `   failed attempt: ${useremail['login_attempt']}`);
+                    }
                 }
             }
            
