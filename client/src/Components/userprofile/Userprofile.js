@@ -28,7 +28,7 @@ const Userprofile = () => {
                     <div>
 
                         <label>Name</label>
-                        <input disabled name='username' value={userdetails[0].name} />
+                        <input name='username' value={userdetails[0].name} />
                     </div>
                     <div>
                         <label>Login Id</label>
