@@ -17,6 +17,10 @@ const Navigationbar = () => {
         }
     }
 
+    const mycookie = Cookies.get('user');
+
+    // console.log(Cookies.get('user'))
+
     const hambtnactive = () => {
         let navToggler = document.querySelector(".nav-toggler");
         navToggler.classList.toggle("active");
@@ -46,18 +50,22 @@ const Navigationbar = () => {
                     </div>
                     <div className='navbtns'>
                         <Link to="/enrollnow" style={{ textDecoration: "none" }}>
-                            <button variant="outline-info" className="text-capitalize">Enroll now</button>
+                            {mycookie != undefined ? <></> : <button variant="outline-info" className="text-capitalize">Enroll now</button>}
                         </Link>
                         <Link to="/login" style={{ textDecoration: "none" }}>
-                            <button variant="outline-info" className="text-capitalize">Login</button>
+                            {mycookie != undefined ? <></> : <button variant="outline-info" className="text-capitalize">Login</button>}
                         </Link>
                         <div style={{ textDecoration: "none" }}>
-                            <button variant="outline-info" className="text-capitalize" onClick={logout}>Logout</button>
+                            {mycookie != undefined ? <button variant="outline-info" className="text-capitalize" onClick={logout}>Logout</button>
+                                : <></>}
                         </div>
                     </div>
                 </div>
                 <div className='section-2'>
-                    <Link to="/userprofile"><button className="userprofilebtn"><i class="fas fa-user" style={{ color: 'white' }}></i></button></Link>
+                    {mycookie != undefined ?
+                        <Link to="/userprofile"><button className="userprofilebtn"><i class="fas fa-user" style={{ color: 'white' }}></i></button></Link>
+                        :
+                        <></>}
                 </div>
                 <div className="hamburger-btn">
                     <button onClick={hambtnactive} type="button" class="nav-toggler">

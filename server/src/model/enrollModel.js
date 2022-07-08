@@ -7,27 +7,31 @@ const bcrypt = require("bcryptjs");
 
 /*****create schema */
 const enrollSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
     email: {
         type: String,
         required: true,
         unique: true,
-        validate(value){
-            if(!validator.isEmail(value)){
-                throw new Error ("Invalid Email")
+        validate(value) {
+            if (!validator.isEmail(value)) {
+                throw new Error("Invalid Email")
             }
         }
     },
     mobileNo: {
         type: String,
         required: true,
-       
-        validate(value){
-            console.log(validator.isMobilePhone(value,['en-IN']));
-            if(!validator.isMobilePhone(value,['en-IN'])){                
-                throw new Error("Please Enter valid indian mobile number");                
+
+        validate(value) {
+            console.log(validator.isMobilePhone(value, ['en-IN']));
+            if (!validator.isMobilePhone(value, ['en-IN'])) {
+                throw new Error("Please Enter valid indian mobile number");
             }
         }
-        
+
     },
     pwd: {
         type: String,
@@ -41,7 +45,7 @@ const enrollSchema = new mongoose.Schema({
     referredCode: {
         type: String,
     },
-    active:{
+    active: {
         type: Boolean,
         required: true,
         default: true,
@@ -51,22 +55,30 @@ const enrollSchema = new mongoose.Schema({
         unique: true,
         required: true,
         default: Date.now(),
-        
+
     },
     login_attempt: {
         type: Number,
         default: 0,
+    },
+    gender: {
+        type: String,
+        default: '',
+    },
+    dob: {
+        type: Date,
     }
 
-},{timestamps:true}); // timestamp creates two fields 1. createdAt that shows the time of field creation 
-                                                  // 2. updatedAt that shows the time of last updated
+
+}, { timestamps: true }); // timestamp creates two fields 1. createdAt that shows the time of field creation 
+// 2. updatedAt that shows the time of last updated
 
 
 
 
 /*****Bcrypt PAssword */
-enrollSchema.pre("save", async function(next){
-    if (this.isModified("pwd")){
+enrollSchema.pre("save", async function (next) {
+    if (this.isModified("pwd")) {
         this.pwd = await bcrypt.hash(this.pwd, 10);
     }
     this.referralCode = await ref();
@@ -74,47 +86,47 @@ enrollSchema.pre("save", async function(next){
 });
 
 /******Generating Tokens */
-enrollSchema.methods.generateAuthToken = async function(){
-    try{
-        const token = jwt.sign({_id:this._id}, process.env.SECRET_KEY, {expiresIn:'1h'});
+enrollSchema.methods.generateAuthToken = async function () {
+    try {
+        const token = jwt.sign({ _id: this._id }, process.env.SECRET_KEY, { expiresIn: '1h' });
 
-        return token;  
-    }catch(err){
+        return token;
+    } catch (err) {
         return err.toString();
     }
 };
 
 /******Generating refreshTokens */
-enrollSchema.methods.generateAuthRefreshToken = async function(){
-    try{
-        const refreshToken = jwt.sign({_id:this._id}, process.env.SECRET_REFERESH_KEY,{expiresIn:'12h'});
+enrollSchema.methods.generateAuthRefreshToken = async function () {
+    try {
+        const refreshToken = jwt.sign({ _id: this._id }, process.env.SECRET_REFERESH_KEY, { expiresIn: '12h' });
 
-        return refreshToken;   
-    }catch(err){
+        return refreshToken;
+    } catch (err) {
         return err.toString();
     }
 }
 
 /*****create module */
-const enrollModel = new mongoose.model("enrollCollection",enrollSchema);
+const enrollModel = new mongoose.model("enrollCollection", enrollSchema);
 
 module.exports = enrollModel;
 
-const ref = async function(){
-    
-    // const randomNumber = Math.floor(Math.random() * 99999);
-    const randomNumber = Math.random().toString(36).substring(2,10+2).toUpperCase();
-                const rf = await enrollModel.findOne({referralCode: randomNumber},{referralCode : 1, _id : 0});
-                
-                // console.log('Random number: ' + randomNumber + 'DB: ' + rf);
+const ref = async function () {
 
-                if(!rf){
-                    console.log('inside if');
-                    
-                    return randomNumber;
-                }else{
-                    console.log('inside else')
-                    return Math.random().toString(36).substring(2,10+2).toUpperCase();
-                }
-                
+    // const randomNumber = Math.floor(Math.random() * 99999);
+    const randomNumber = Math.random().toString(36).substring(2, 10 + 2).toUpperCase();
+    const rf = await enrollModel.findOne({ referralCode: randomNumber }, { referralCode: 1, _id: 0 });
+
+    // console.log('Random number: ' + randomNumber + 'DB: ' + rf);
+
+    if (!rf) {
+        console.log('inside if');
+
+        return randomNumber;
+    } else {
+        console.log('inside else')
+        return Math.random().toString(36).substring(2, 10 + 2).toUpperCase();
+    }
+
 };

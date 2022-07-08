@@ -1,93 +1,93 @@
 const courseModel = require("../model/courseModel");
 
 module.exports = {
-    createCourse: async function (req, res){
+    createCourse: async function (req, res) {
         console.log("inside createCourse function.");
         console.log(req.body);
 
-        try{
+        try {
             const data = new courseModel(req.body);
-            if(req.file){
+            if (req.file) {
                 data.course_image = req.file.path
             }
             const coursedata = await data.save();
             console.log(coursedata);
             res.status(200).send(coursedata);
-        }catch(err){
-            if(err.toString().includes('E11000 duplicate key error')){
+        } catch (err) {
+            if (err.toString().includes('E11000 duplicate key error')) {
                 res.status(400).send('Course with the same name is already present');
-            }else{
+            } else {
                 res.status(400).send(err.toString());
             }
         }
     },
-    getCourse : async function (req,res){
+    getCourse: async function (req, res) {
         console.log('Indside getCourse function');
 
-        try{
+        try {
             const paramkey = req.params.key;
             const paramvalue = req.params.value;
 
-            if(paramkey && paramvalue){
+            if (paramkey && paramvalue) {
                 const getdata = await courseModel.find({
-                    [paramkey] : paramvalue,                    
+                    [paramkey]: paramvalue,
                 });
-                if(getdata.length>0){
+                if (getdata.length > 0) {
                     res.status(201).send(getdata);
-                }else{
+                } else {
                     res.status(404).send('No data found');
                 }
-            }else{
+            } else {
                 console.log('inside else');
                 const getdata = await courseModel.find();
-                if(getdata.length>0){
+                if (getdata.length > 0) {
                     res.status(201).send(getdata);
-                }else{
+                } else {
                     res.status(404).send('No data found');
                 }
             }
-        }catch{
+        } catch {
             res.status(500).send(err.toString());
         }
     },
-    updateCourse : async function (req,res){
+    updateCourse: async function (req, res) {
         console.log("inside updateCourse function");
 
-        try{
+        try {
             const _id = req.params.id;
-            if(!_id){
+            if (!_id) {
                 res.status(404).send('Record Not Found');
-            }else{
-                const updateddata = await courseModel.findByIdAndUpdate(_id, req.body,{new:true, runValidators: true});
+            } else {
+                const updateddata = await courseModel.findByIdAndUpdate(_id, req.body, { new: true, runValidators: true });
                 res.status(201).send(updateddata);
 
             }
-        }catch(err){
-            if(err.toString().includes("E11000 duplicate key error")){
+        } catch (err) {
+            if (err.toString().includes("E11000 duplicate key error")) {
                 res.status(400).send("Course with the same name is already present");
-            }else{
+            } else {
                 res.status(400).send(err.toString());
             }
         }
     },
-    deleteCourse: async function (req,res){
+    deleteCourse: async function (req, res) {
         console.log("inside deleteCourse function");
 
-        try{
+        try {
             const _id = req.params.id;
-            const id = await courseModel.findOne({_id},{_id:1});
+            const id = await courseModel.findOne({ _id }, { _id: 1 });
             console.log(id);
-            if(!id){
+            if (!id) {
                 res.status(404).send('No Record Found To Delete');
-            }else{
+            } else {
                 const deleteddata = await courseModel.findByIdAndDelete(_id);
                 res.status(201).send(deleteddata);
             }
-        }catch(err){
-            if(err.toString().includes('CastError')){
+        } catch (err) {
+            if (err.toString().includes('CastError')) {
                 res.status(404).send('No Record Found To Delete');
-            }else{
-              res.status(400).send(err.toString());
+            } else {
+                res.status(400).send(err.toString());
             }
         }
     }

@@ -8,17 +8,17 @@ const Userprofile = () => {
 
     const user = Cookies.get("user");
     const emailUser = JSON.parse(user).email;
-    const [userdetails,setuserDeatils] =  useState('user')
+    const [userdetails, setuserDeatils] = useState('user')
 
-    useEffect(()=>{
-        axios.get(`/enroll/enroll/email/${emailUser}`).then((response)=>{
-                setuserDeatils(response.data);
-        }).catch((e)=>{
-          console.log(e)  
+    useEffect(() => {
+        axios.get(`/enroll/enroll/email/${emailUser}`).then((response) => {
+            setuserDeatils(response.data);
+        }).catch((e) => {
+            console.log(e)
         })
-    },[])
- 
+    }, [])
 
+    const [choice, setChoice] = useState();
     return (
         <div className='userprofile-outer'>
             <Userprofilenavbar />
@@ -28,11 +28,11 @@ const Userprofile = () => {
                     <div>
 
                         <label>Name</label>
-                        <input disabled name='username' />
+                        <input disabled name='username' value={userdetails[0].name} />
                     </div>
                     <div>
                         <label>Login Id</label>
-                    <input disabled name='userloginid'  />
+                        <input disabled name='userloginid' value={userdetails[0].email} />
                     </div>
 
                     <div>
@@ -43,12 +43,16 @@ const Userprofile = () => {
                     <div>
 
                         <label>Mobile Number</label>
-                        <input name='userphone' value="7000896210" />
+                        <input name='userphone' value={userdetails[0].mobileNo} />
                     </div>
 
                     <div>
                         <label>Gender</label>
-                        <select id="gender">
+                        <select id="gender" 
+                        value={choice}
+                        defaultValue={"default"}
+                        onChange={(e) => setChoice(e.target.value)}>
+                            <option value="default" disabled>{userdetails[0].gender}</option>
                             <option value="Male">Male</option>
                             <option value="Female" >Female</option>
                             <option value="Other" >Other</option>
@@ -57,7 +61,7 @@ const Userprofile = () => {
 
                     <div>
                         <label>DOB</label>
-                        <input type="date" />
+                        <input type="date" value={userdetails[0].dob}/>
                     </div>
 
                     <div>

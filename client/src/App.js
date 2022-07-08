@@ -13,8 +13,7 @@ import Courses from './Components/Courses';
 import Cookies from 'js-cookie';
 import Auth from './Components/Auth';
 import Layout from './Components/Layout'
-import Dashboard from './Adminpanel/Dashboard'
-import Topusers from './Adminpanel/Topusers'
+
 
 import Userprofile from './Components/userprofile/Userprofile';
 import Invoice from './Components/userprofile/Invoice';
@@ -30,10 +29,10 @@ function App() {
 
         <Routes>
           <Route path='/' element={<Layout />}>
-          <Route path='/' element={<Home />} />
+            <Route path='/' element={<Home />} />
             <Route element={<Auth />}>
               {/* authenticate users */}
-                <Route path='/userprofile' element={<Userprofile />} />
+              <Route path='/userprofile' element={<Userprofile />} />
             </Route>
             <Route path='home' element={<Home />} />
             <Route path='enrollnow' element={<Enrollnow />} />
@@ -42,10 +41,7 @@ function App() {
             <Route path='about' element={<About />} />
             <Route path='contact' element={<Contact />} />
             <Route path='courses' element={<Courses />} />
-            <Route path='/adminboard' element={<Dashboard />} />
-            <Route path='/dashboard' element={<Dashboard />} />
-            <Route path='/topusers' element={<Topusers />} />
-         
+
             <Route path='/userinvoice' element={<Invoice />} />
             <Route path='/changeprofilepic' element={<Changeprofileimage />} />
             <Route path='/changepassword' element={<Changepassword />} />

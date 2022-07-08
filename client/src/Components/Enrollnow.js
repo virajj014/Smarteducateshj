@@ -5,74 +5,74 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const Enrollnow = () => {
-    const navigate =  useNavigate();
+    const navigate = useNavigate();
 
     const initialValues = {
         email: "",
         mobileNo: "",
         pwd: "",
-        cpwd:"",
+        cpwd: "",
         state: "",
         referredCode: "",
-        
-    } 
+
+    }
     const [user, setUser] = useState(initialValues);
 
     let name, value;
     const handleInputs = (e) => {
-        name = e.target.name;  
+        name = e.target.name;
         value = e.target.value;
         setUser({ ...user, [name]: value });
     }
 
-    const register =  (e) => {  
-        e.preventDefault();  
-        
-        const {email,mobileNo,pwd,cpwd,state,referredCode} = user;
+    const register = (e) => {
+        e.preventDefault();
 
-        if(!email ){
+        const { name, email, mobileNo, pwd, cpwd, state, referredCode } = user;
+
+        if (!email) {
             alert("email required! ")
-        } else if(!mobileNo ){
+        } else if (!mobileNo) {
             alert("mobile number is required! ")
-        }else if(!pwd ){
+        } else if (!pwd) {
             alert("password is required! ")
-        }else if(!state ){
+        } else if (!state) {
             alert("state is required! ")
-        }else{
-            try{
+        } else {
+            try {
                 alert(pwd);
                 alert(cpwd);
-                if(pwd===cpwd){
+                if (pwd === cpwd) {
                     axios.post('/enroll/enroll',
-                JSON.stringify({email,mobileNo,pwd,cpwd,state,referredCode}),{
-                    headers: {"Content-Type": "application/json",'Accept': 'application/json'}
-                }).then((response)=>{
-                    alert(response.data.message)
-                    console.log(response.data.message)
-                    if(response.status === (400)){
-                        alert("duplicate email is not allowed!")
-                    }
-                    if(response.status === (201)){
-                        navigate('/login')
-                    }
-                    
-                }).catch((e)=>{
-                    if(e.response.status === 400){
-                        alert(e.response.data);
-                        // console.log(e.response.status);
-                    // alert(e.response.data);
-                }
-                });
-                }else{
+                        JSON.stringify({ name, email, mobileNo, pwd, cpwd, state, referredCode }), {
+                        headers: { "Content-Type": "application/json", 'Accept': 'application/json' }
+                    }).then((response) => {
+                        alert(response.data.message)
+                        console.log(response.data.message)
+                        if (response.status === (400)) {
+                            console.log(response.data.message)
+                        }
+                        if (response.status === (201)) {
+                            navigate('/login')
+                        }
+
+                    }).catch((e) => {
+                        if (e.response.status === 400) {
+                            alert(e.response.data);
+                            // console.log(e.response.status);
+                            // alert(e.response.data);
+                        }
+                    });
+                } else {
                     alert('password and confirm password do not match')
                 }
-            }catch(err){   
+            } catch (err) {
                 alert(err)
             }
-            
+
         }
     }
-    
+
     // const check = () => {
     //     if (
     //         document.getElementById('pwd').value ==
@@ -85,9 +85,9 @@ const Enrollnow = () => {
     //         document.getElementById('message').innerHTML = '❌';
     //     }
     // }
-    const {email,mobileNo,pwd,cpwd,state,referredCode} = user;
+    const { email, mobileNo, pwd, cpwd, state, referredCode } = user;
     return (
-        
+
         <form method='POST' >
             <div className='outer-enrollnow-container '>
                 <div className='enrollnow-container'>
@@ -98,22 +98,24 @@ const Enrollnow = () => {
                     <div className='enrollnow-right'>
                         <h1>Register to Smart Educates</h1>
                         <br />
+                        <label>name</label>
+                        <input type='text' name='name' value={name} onChange={handleInputs} placeholder='Enter your Full Name' />
                         <label>email Id</label>
-                        <input type='email' name="email" value={email} onChange={handleInputs} placeholder='xyz@gmail.com'   />
+                        <input type='email' name="email" value={email} onChange={handleInputs} placeholder='xyz@gmail.com' />
 
                         <label>Enter Mobile number</label>
-                        <input type='number' name='mobileNo' value={mobileNo} onChange={handleInputs} placeholder='Enter your 10 digit Mobile mobileNo'   />
+                        <input type='number' name='mobileNo' value={mobileNo} onChange={handleInputs} placeholder='Enter your 10 digit Mobile mobileNo' />
                         <div className='sub-form'>
                             <div>
                                 <label>Create pwd</label>
                                 <input name='pwd' value={pwd}
                                     onChange={handleInputs}
-                                    type='password' id="pwd"  />
+                                    type='password' id="pwd" />
                             </div>
                             <div>
                                 <label>Confirm pwd</label>
                                 <input type='password' name="cpwd" id="cpwd" value={cpwd}
-                                    onChange={handleInputs}  />
+                                    onChange={handleInputs} />
                                 <span id="message"></span>
                             </div>
 
