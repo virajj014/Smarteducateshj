@@ -1,0 +1,102 @@
+.dashboard-inner {
+    margin-left: 310px;
+    background-color: rgb(237, 237, 237);
+    height: 100vh;
+}
+
+.dashboard-main .head {
+    background-color: white;
+    text-align: center;
+    font-weight: 500;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    padding: 5px;
+}
+
+.dashboard-indicators {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.statsbox {
+    width: 330px;
+    height: 150px;
+    border-radius: 30px;
+    padding: 10px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    justify-content: center;
+}
+
+.statsbox h1 {
+    /* background-color: none; */
+}
+
+
+.statsbox p {
+    font-size: 25px;
+    font-weight: 700;
+}
+
+
+.dashboard-indicators .bg1 {
+    background: linear-gradient(to top right, #6600cc 23%, #0099ff 100%);
+}
+
+.dashboard-indicators .bg2 {
+    background: linear-gradient(to top right, #ff5050 23%, #ff9933 100%);
+}
+
+.dashboard-indicators .bg3 {
+    background: linear-gradient(to top right, #00ffff 23%, #66ff66 100%);
+}
+
+
+
+
+.statsbox .DMYA {
+    display: flex;
+    justify-content: center;
+}
+
+.DMYA p {
+    background-color: rgb(186, 186, 186);
+    color: black;
+    margin: 5px;
+    padding: 5px;
+    font-size: 15px;
+    border-radius: 10px;
+}
+
+.DMYA .active {
+    background-color: white;
+}
+
+.DMYA p:hover {
+    cursor: pointer;
+
+    box-shadow: 0px 0px 10px 1px white;
+}
+
+
+@media (max-width:1430px) {
+    .dashboard-inner {
+        margin: 0px;
+    }
+}
+
+@media (max-width:1110px) {
+    .statsbox {
+        width: 250px;
+    }
+}
+
+@media (max-width:580px) {
+    .statsbox {
+        width: 330px;
+    }
+}

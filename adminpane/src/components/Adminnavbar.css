@@ -1,0 +1,70 @@
+.Adminnavbar {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    /* justify-content: initial; */
+    align-items: center;
+    background-color: rgb(19, 37, 30);
+    box-shadow: 0px 10px 20px 5px rgb(226, 226, 226);
+    height: 100vh;
+    position: fixed;
+    padding: 30px;
+    z-index: +5;
+}
+
+.Adminnavbar img {
+    width: 150px;
+}
+
+.Adminnavbar div {
+    display: flex;
+    flex-direction: column;
+}
+
+.Adminnavbar a {
+    text-decoration: none;
+    color: rgb(152, 152, 152);
+    margin: 10px;
+    padding: 5px 10px;
+    font-size: 20px;
+}
+
+.Adminnavbar h1 {
+    color: white;
+    padding: 20px;
+}
+
+.Adminnavbar a:hover {
+    background-color: white;
+    color: rgb(19, 37, 30);
+    border-radius: 10px;
+}
+
+.Admin-Ham {
+    display: none;
+    background-color: black;
+    height: 40px;
+    width: 40px;
+    border: none;
+    border-radius: 40px;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+}
+
+.Admin-Ham i {
+    color: white;
+    font-size: 20px;
+}
+
+@media (max-width:1430px) {
+    .Adminnavbar {
+        display: none;
+    }
+
+    .Admin-Ham {
+        display: block;
+    }
+}
