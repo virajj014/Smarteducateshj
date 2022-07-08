@@ -67,9 +67,19 @@ const enrollSchema = new mongoose.Schema({
     },
     dob: {
         type: Date,
+    },
+    country: {
+        type: String,
+        default: 'India',
+    },
+    city: {
+        type: String,
+        default: '',
+    },
+    pincode: {
+        type: Number,
+        default: '',
     }
-
-
 }, { timestamps: true }); // timestamp creates two fields 1. createdAt that shows the time of field creation 
 // 2. updatedAt that shows the time of last updated
 
