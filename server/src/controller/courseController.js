@@ -55,12 +55,20 @@ module.exports = {
 
         try {
             const _id = req.params.id;
-            if (!_id) {
-                res.status(404).send('Record Not Found');
-            } else {
-                const updateddata = await courseModel.findByIdAndUpdate(_id, req.body, { new: true, runValidators: true });
-                res.status(201).send(updateddata);
+            const updatecoursebyid = await courseModel.findById(_id);
 
+            if (!updatecoursebyid) {
+                res.send("Record Not Found");
+            } else {
+                
+                if (req.file) {
+                    req.body.course_image = req.file.path
+                }
+                updatecoursebyid.set({
+                    ...req.body
+                });
+                await updatecoursebyid.save();
+                res.send(updatecoursebyid);
             }
         } catch (err) {
             if (err.toString().includes("E11000 duplicate key error")) {
