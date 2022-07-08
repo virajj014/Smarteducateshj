@@ -1,0 +1,7 @@
+.product-slider {
+    background: linear-gradient(to bottom, #ffffff 10%, #0ad6a0 100%);
+    padding-top: 200px;
+    padding-bottom: 50px;
+    /* display: flex; */
+    /* justify-content: center; */
+}
