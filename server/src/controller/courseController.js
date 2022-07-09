@@ -4,7 +4,7 @@ module.exports = {
     createCourse: async function (req, res) {
         console.log("inside createCourse function.");
         console.log(req.body);
-
+        
         try {
             const data = new courseModel(req.body);
             if (req.file) {
