@@ -5,6 +5,27 @@
     color: orange;
 }
 
+.coursepage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.course-searchbar {
+    width: 500px;
+    background-color: white;
+    border: 2px solid orange;
+    border-radius: 20px;
+    padding: 5px 10px;
+}
+
+.course-searchbar input {
+    outline: none;
+    border: none;
+    padding-left: 10px;
+}
+
 .courses_array {
     display: flex;
     flex-wrap: wrap;

@@ -4,9 +4,9 @@ import Userprofilenavbar from './Userprofilenavbar'
 
 const Changeprofileimage = () => {
     return (
-        <div className='userprofile-outer'>
+        <div className='changepassword-outer'>
             <Userprofilenavbar />
-            <div className="userprofile-container">
+            <div className="changepassword-container">
                 <h1>Change Profile Picture</h1>
                 <form>
                     <div>

@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 // const allCourses = require("../model/courseSchema")
-const Courses = () => {
+const Mycourses = () => {
     const [allCourses, setallCourses] = useState([]);
     const [filterdata, setfilterdata] = useState([]);
     const [keyword, setkeyword] = useState('');
@@ -26,10 +26,9 @@ const Courses = () => {
         setkeyword(e.target.value.toLowerCase())
         setfilterdata(allCourses.filter(e => e.course_name.toLowerCase().includes(keyword)))
     }
-
     return (
         <div className='coursepage'>
-            <h1>Our Courses</h1>
+            <h1>Your Courses</h1>
             {/* <p>{allCourses.courses[0].coursename}</p> */}
             <div>
                 <div className='course-searchbar'>
@@ -54,4 +53,4 @@ const Courses = () => {
     )
 }
 
-export default Courses
+export default Mycourses

@@ -1,16 +1,15 @@
 import React from 'react'
 import Userprofilenavbar from './Userprofilenavbar'
-
+import './Changepassword.css'
 
 const Changepassword = () => {
     return (
-        <div className='userprofile-outer'>
+        <div className='changepassword-outer'>
             <Userprofilenavbar />
-            <div className="userprofile-container">
+            <div className="changepassword-container">
                 <h1>Change Your Password</h1>
-                <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: 'white' }}>
-                    <form style={{ justifyContent: 'left', maxWidth: '90%' }}>
-
+                <div>
+                    <form >
                         <label>Enter Old Password</label>
                         <input type="password" />
 
@@ -23,7 +22,7 @@ const Changepassword = () => {
                         <input type="password" />
 
 
-                        <div style={{ width: '100%' }}>
+                        <div >
                             <button>Make Changes</button>
                         </div>
                     </form>

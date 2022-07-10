@@ -54,9 +54,9 @@ nav .right .section-2 {
 
 .navbtns button {
     background-color: white;
-    color: #1FBCD4;
+    color: #000000;
     font-weight: 500;
-    border: 2px solid #1FBCD4;
+    border: 2px solid #000000;
     margin: 0px 5px;
     border-radius: 5px;
     /* width: 90px; */
@@ -65,13 +65,13 @@ nav .right .section-2 {
 }
 
 .navbtns button:hover {
-    background-color: #1FBCD4;
+    background-color: #000000;
     color: white;
 }
 
 
 .userprofilebtn {
-    background-color: #323232;
+    background-color: rgb(0, 0, 0);
     width: 40px;
     height: 40px;
     border-radius: 40px;
@@ -80,7 +80,7 @@ nav .right .section-2 {
 }
 
 .userprofilebtn:hover {
-    background-color: #1FBCD4;
+    background-color: orange;
 }
 
 
@@ -151,6 +151,33 @@ nav .right .section-2 {
     transform: rotate(135deg);
 }
 
+
+.userprofile-drop {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    /* display: flex; */
+    flex-direction: column;
+    z-index: +5;
+    padding: 10px;
+    border-radius: 20px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    background-color: orange;
+}
+
+.userprofile-drop button {
+    border: 1px solid orange;
+    margin: 5px;
+    background-color: orange;
+    color: white;
+    font-weight: 600;
+}
+
+.userprofile-drop button:hover {
+    border-bottom-color: white;
+}
 
 
 

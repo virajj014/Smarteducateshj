@@ -18,6 +18,8 @@ const Userprofilenavbar = () => {
         const navoutermost = document.querySelector(".nav-outermost");
         navoutermost.classList.toggle("open1");
     }
+
+
     return (
         <div className='nav-outermost'>
             <div className="user-hamburger-btn">

@@ -35,6 +35,19 @@ const Navigationbar = () => {
 
     }
 
+    const userprofdrop = () => {
+        const nav = document.querySelector(".userprofile-drop");
+        if (nav.style.display == "flex") {
+            nav.style.display = "none";
+            console.log(nav.style.display)
+        }
+        else {
+            nav.style.display = "flex";
+            console.log(nav.style.display)
+
+        }
+    }
+
     return (
         <nav >
             <div className='left'>
@@ -63,7 +76,7 @@ const Navigationbar = () => {
                 </div>
                 <div className='section-2'>
                     {mycookie != undefined ?
-                        <Link to="/userprofile"><button className="userprofilebtn"><i class="fas fa-user" style={{ color: 'white' }}></i></button></Link>
+                        <button onClick={userprofdrop} className="userprofilebtn"><i class="fas fa-user" style={{ color: 'white' }}></i></button>
                         :
                         <></>}
                 </div>
@@ -72,6 +85,11 @@ const Navigationbar = () => {
                         <span></span>
                     </button>
                 </div>
+            </div>
+            <div className="userprofile-drop">
+                <Link to="/userprofile"><button onClick={userprofdrop}>My profile</button></Link>
+                <Link to="/mycourses"><button onClick={userprofdrop}>My courses</button></Link>
+                <Link to="#"><button onClick={userprofdrop}>Affiliate Panel</button></Link>
             </div>
         </nav >
     )

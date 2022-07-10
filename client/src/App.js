@@ -20,6 +20,7 @@ import Invoice from './Components/userprofile/Invoice';
 import Changeprofileimage from './Components/userprofile/Changeprofileimage';
 import Changepassword from './Components/userprofile/Changepassword';
 import Logout from './Components/Logout';
+import Mycourses from './Components/Mycourses';
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
             <Route path='/userinvoice' element={<Invoice />} />
             <Route path='/changeprofilepic' element={<Changeprofileimage />} />
             <Route path='/changepassword' element={<Changepassword />} />
+            <Route path='/mycourses' element={<Mycourses />} />
           </Route>
         </Routes>
         <Footer />

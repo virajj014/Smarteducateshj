@@ -18,7 +18,7 @@ const Userprofile = () => {
         })
     }, [])
 
-    const [choice, setChoice] = useState();
+
     return (
         <div className='userprofile-outer'>
             <Userprofilenavbar />
@@ -28,7 +28,7 @@ const Userprofile = () => {
                     <div>
 
                         <label>Name</label>
-                        <input name='username' value={userdetails[0].name} />
+                        <input disabled name='username' value={userdetails[0].name} />
                     </div>
                     <div>
                         <label>Login Id</label>
@@ -43,16 +43,12 @@ const Userprofile = () => {
                     <div>
 
                         <label>Mobile Number</label>
-                        <input name='userphone' value={userdetails[0].mobileNo} />
+                        <input name='userphone' value="7000896210" />
                     </div>
 
                     <div>
                         <label>Gender</label>
-                        <select id="gender" 
-                        value={choice}
-                        defaultValue={"default"}
-                        onChange={(e) => setChoice(e.target.value)}>
-                            <option value="default" disabled>{userdetails[0].gender}</option>
+                        <select id="gender">
                             <option value="Male">Male</option>
                             <option value="Female" >Female</option>
                             <option value="Other" >Other</option>
@@ -61,7 +57,7 @@ const Userprofile = () => {
 
                     <div>
                         <label>DOB</label>
-                        <input type="date" value={userdetails[0].dob}/>
+                        <input type="date" />
                     </div>
 
                     <div>
